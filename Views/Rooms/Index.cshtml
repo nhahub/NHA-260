@@ -1,0 +1,195 @@
+﻿@model IEnumerable<Travely.Models.TblRoom>
+
+@{
+    ViewData["Title"] = "Rooms";
+}
+@* 
+<main style="min-height:82vh;">
+    @if (User.IsInRole("admin"))
+    {
+        <p><a asp-action="Create" class="ColorBtn mt-5">Create New Room</a></p>
+    }
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.RoomNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.RoomType)</th>
+            <th>@Html.DisplayNameFor(model => model.BedsCount)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Available)</th>
+            <th>@Html.DisplayNameFor(model => model.MaxGuests)</th>
+            <th>@Html.DisplayNameFor(model => model.Hotel)</th>
+
+            <th>@Html.DisplayNameFor(model => model.BreakfastIncluded)</th>
+            <th>@Html.DisplayNameFor(model => model.PetsAllowed)</th>
+                @if (User.IsInRole("admin") || User.IsInRole("staff"))
+                {
+                    <th>Actions</th>
+                }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.RoomNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.RoomType)</td>
+                <td>@Html.DisplayFor(modelItem => item.BedsCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>
+                    <span class="badge @(item.Available ? "bg-success" : "bg-danger")">
+                        @(item.Available ? "Available" : "Occupied")
+                    </span>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.MaxGuests)</td>
+                <td>@Html.DisplayFor(modelItem => item.Hotel.Name)</td>
+                <td>
+                    <span class="badge @(item.BreakfastIncluded ? "bg-success" : "bg-secondary")">
+                        @(item.BreakfastIncluded ? "Included" : "Not Included")
+                    </span>
+                </td>
+                <td>
+                    <span class="badge @(item.PetsAllowed ? "bg-success" : "bg-secondary")">
+                        @(item.PetsAllowed ? "Allowed" : "Not Allowed")
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                            @if (User.IsInRole("admin") || User.IsInRole("staff"))
+                            {
+                        <a asp-action="Edit" asp-route-id="@item.RoomId" class="action-btn edit-btn" title="Edit">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.RoomId" class="action-btn details-btn" title="Details">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.RoomId" class="action-btn delete-btn" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        <a asp-action="UpdateAvailability" asp-route-id="@item.RoomId"
+                           asp-route-isAvailable="@(!item.Available)"
+                           class="action-btn @(item.Available ? "occupy-btn" : "available-btn")"
+                           title="@(item.Available ? "Mark Occupied" : "Mark Available")">
+                            <i class="bi @(item.Available ? "bi-toggle-on" : "bi-toggle-off")"></i>
+                        </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</main> *@
+
+<header class="hotels-header">
+    <div>
+        <h2 class="hotels-title h3 mb-1">Explore Rooms</h2>
+        <p class="hotels-subtitle">Browse cozy spaces and find your perfect stay</p>
+    </div>
+</header>
+<div style="display:flex; justify-content:center; align-items:center;">
+    @if (User.IsInRole("admin"))
+    {
+        <p><a asp-action="Create" class="ColorBtn mt-5">Create New Room</a></p>
+    }
+</div>
+
+<main class="main">
+
+    <section id="rooms-2" class="rooms-2 section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="rooms-grid" data-aos="fade-up" data-aos-delay="300">
+                <div class="row g-4">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="room-card">
+                                <div class="room-image">
+
+                                    @{
+                                        string imageUrl = "/images/placeholder.png";
+                                        if (item.TblRoomImages != null && item.TblRoomImages.Any())
+                                        {
+                                            imageUrl = item.TblRoomImages.First().ImageUrl;
+                                        }
+                                    }
+                                    <img src="@imageUrl" alt="@item.RoomType" class="img-fluid">
+                                    <div class="room-features">
+                                    </div>
+                                </div>
+                                <div class="room-content mb-0">
+                                    <div class="room-header">
+                                        <h3>@Html.DisplayFor(modelItem => item.RoomType)</h3>
+                                    </div>
+                                    <p class="room-description ">@Html.DisplayFor(modelItem => item.Description)</p>
+                                    <div class="room-amenities">
+                                        <span><i class="bi bi-people"></i> @Html.DisplayFor(modelItem => item.MaxGuests) </span>
+                                        <span><i class="bi bi-wifi"></i> Free WiFi</span>
+                                        <span><i class="bi bi-tv"></i> Smart TV</span>
+                                    </div>
+                                    <div class="room-footer">
+                                        <div class="room-price">
+                                            <span class="price-from">From</span>
+                                            <span class="price-amount">@Html.DisplayFor(modelItem => item.Price)</span>
+                                            <span class="price-period">/ night</span>
+                                        </div>
+                                        <a asp-action="Details" asp-route-id="@item.RoomId" class="ColorBtn" title="Details">View Details</a>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content:center; align-items:center; margin:0;">
+                                    @if (User.IsInRole("admin") || User.IsInRole("staff"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.RoomId" class="BackBtnGray" title="Edit">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@item.RoomId" class="WarningBtnRed" title="Delete">Delete</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+   <style>
+   .room-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    .hotels-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 5rem;
+        margin-top: 2rem
+    }
+
+    .hotels-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--heading-color);
+        font-weight: 700;
+        font-size: 45px;
+        letter-spacing: -0.02em;
+        margin: 0;
+        margin-top:20px;
+        color: #393E46;
+    }
+
+    .hotels-subtitle {
+        color: var(--muted);
+        margin: .25rem 0 0 0;
+        color: #393E46;
+    }
+    </style>

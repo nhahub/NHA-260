@@ -1,0 +1,189 @@
+﻿@model Travely.Models.TblHotel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main class="main">
+    <section id="room-details" class="room-details section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <!-- Room Header with Image and Basic Info -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
+                    <div class="room-header-image">
+                        @if (Model.TblHotelImages != null && Model.TblHotelImages.Any() && !string.IsNullOrEmpty(Model.TblHotelImages.First().ImageUrl))
+                        {
+                            <img src="@Url.Content(Model.TblHotelImages.First().ImageUrl)" alt="@Model.Name" class="img-fluid rounded shadow-lg">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/images/default-hotel-placeholder.png")" alt="No image available" class="img-fluid rounded shadow-lg">
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
+                    <div class="room-header-content">
+                        <div class="room-rating mb-3">
+                            <div class="stars">
+                                @if (Model.Stars.HasValue && Model.Stars.Value > 0)
+                                {
+                                    for (int i = 0; i < Model.Stars.Value; i++)
+                                    {
+                                        <i class="bi bi-star-fill" style="color: #ffc107;"></i>
+                                    }
+                                    for (int i = 0; i < (5 - Model.Stars.Value); i++)
+                                    {
+                                        <i class="bi bi-star" style="color: #e4e5e9;"></i>
+                                    }
+                                    <span class="rating-score ms-2">@Model.Stars.Value</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No rating available</span>
+                                }
+                            </div>
+                        </div>
+                        <h1 class="room-title">@Html.DisplayFor(model => model.Name)</h1>
+                        <p class="room-tagline fs-5 text-muted">@Html.DisplayFor(model => model.Description)</p>
+                        <a asp-controller="Rooms" asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-book-now">Explore Rooms</a>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model?.HotelId" class="btn btn-book-now">Edit</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="room-description">
+                        <h3 class="section-subtitle KiroFont2">Hotel Overview</h3>
+                        <p>@Html.DisplayFor(model => model.Overview)</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="highlight-box">
+                        <div class="highlight-icon">
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <h4>Premium Experience</h4>
+                        <p>"The most beautiful suite we've ever stayed in. The ocean view is absolutely breathtaking and the attention to detail is remarkable."</p>
+                        <div class="quote-author">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-tabs mb-5" data-aos="fade-up" data-aos-delay="200">
+                <ul class="nav nav-tabs" id="room-detailsRoomTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="room-details-policies-tab" data-bs-toggle="tab" data-bs-target="#room-details-policies" type="button" role="tab">Policies</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="room-details-location-tab" data-bs-toggle="tab" data-bs-target="#room-details-location" type="button" role="tab">Location</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="room-details-services-tab" data-bs-toggle="tab" data-bs-target="#room-details-services" type="button" role="tab">Services</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="room-detailsRoomTabsContent">
+                    <div class="tab-pane fade show active" id="room-details-policies" role="tabpanel">
+                        <div class="tab-content-wrapper">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>Check-in / Check-out</h6>
+                                    <p>Check-in: @Html.DisplayFor(model => model.CheckInTime) <br>Check-out: @Html.DisplayFor(model => model.CheckOutTime) </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Cancellation</h6>
+                                    <p>@Html.DisplayFor(model => model.CancellationPolicy)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Pets</h6>
+                                    <p>Pet-friendly with some rooms</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="room-details-location" role="tabpanel">
+                        <div class="tab-content-wrapper">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Nearby Attractions</h6>
+                                    <ul>
+                                        <li>@Html.DisplayFor(model => model.Address)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="room-details-services" role="tabpanel">
+                        <div class="tab-content-wrapper">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>Concierge</h6>
+                                    <p>24/7 concierge service for reservations and recommendations</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Room Service</h6>
+                                    <p>Available 6:00 AM - 11:00 PM daily</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Housekeeping</h6>
+                                    <p>Daily housekeeping and turndown service</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-addons mb-5" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="section-subtitle mb-4">Enhance Your Stay</h3>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="addon-card">
+                            <div class="addon-icon">
+                                <i class="bi bi-cup-hot"></i>
+                            </div>
+                            <h5>Breakfast Package</h5>
+                            <p>Start your day with our signature breakfast buffet featuring fresh local ingredients</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="addon-card">
+                            <div class="addon-icon">
+                                <i class="bi bi-flower1"></i>
+                            </div>
+                            <h5>Spa Access</h5>
+                            <p>Enjoy unlimited access to our luxury spa facilities during your stay</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="addon-card">
+                            <div class="addon-icon">
+                                <i class="bi bi-airplane"></i>
+                            </div>
+                            <h5>Airport Transfer</h5>
+                            <p>Private luxury vehicle transfer to and from the airport For your convenience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-cta" data-aos="fade-up" data-aos-delay="200">
+                <div class="booking-card">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h4>Ready to book your stay?</h4>
+                            <p>Experience luxury and comfort in our <strong>@Html.DisplayFor(model => model.Name) </strong>. Book now and create unforgettable memories.</p>
+                        </div>
+                        <div class="col-lg-4 text-center text-lg-end">
+                            <a asp-controller="Rooms" asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-book-now">Check Rooms & Availability</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>

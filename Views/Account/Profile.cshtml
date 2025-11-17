@@ -1,0 +1,133 @@
+﻿@model Travely.ViewModels.ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_Layout";
+}
+
+
+<div class="profile-page-container">
+
+    <aside class="sidebar">
+        <div class="user-profile">
+
+            @if (!string.IsNullOrEmpty(Model.Imagepath))
+            {
+                <img src="@Url.Content(Model.Imagepath)" alt="Profile Picture" class="profile-avatar-image">
+            }
+            else
+            {
+                <img src="@Url.Content("~/images/profiles/Unknown_person.jpg")" alt="Profile Picture" class="profile-avatar-image">
+            }
+
+            <span class="user-name">@Model.Fullname</span>
+            @if (User.IsInRole("admin") || User.IsInRole("staff"))
+            {
+                <span class="user-name" style="display:flex;">Your Role: "<span style="color:brown; font-size:18px;">@Model.Role</span>"</span>
+            }
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a asp-action="Profile" asp-controller="Account" class="active"><i class="fas fa-briefcase"></i> My Bookings</a></li>
+                <li><a asp-action="Edit" asp-controller="Account"><i class="fas fa-user"></i> Personal Info</a></li>
+                <li><a asp-action="Index" asp-controller="Notifications"><i class="fas fa-heart"></i> Notifications</a></li>
+                <li><a asp-action="Wishlist" asp-controller="Account"><i class="fas fa-heart"></i> My Wishlist</a></li>
+            </ul>
+        </nav>
+
+        <div class="logout-link">
+            <form asp-controller="Account" asp-action="Logout" method="post" id="sidebarLogoutForm">
+                @Html.AntiForgeryToken()
+                <a href="javascript:void(0);"
+                   onclick="document.getElementById('sidebarLogoutForm').submit();"
+                   class="sidebar-logout-link">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </a>
+            </form>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <h1>Your Past Adventures</h1>
+
+        @if (Model.PastBookings != null && Model.PastBookings.Any())
+        {
+            foreach (var booking in Model.PastBookings)
+            {
+                <div class="booking-card">
+                    <div class="booking-details">
+                        <h2>@booking.HotelName</h2>
+                        <p class="location-date">@booking.Location</p>
+                        <p class="location-date">
+                            @booking.StartDate.ToString("MMM dd, yyyy") - @booking.EndDate.ToString("MMM dd, yyyy")
+                        </p>
+                        <p class="price">@booking.Price.ToString("C0")</p>
+                        <a href="/Bookings/Details/@booking.BookingId" class="btn btn-details">View Details</a>
+                    </div>
+                    <div class="booking-image">
+                        <img src="@Url.Content(booking.ImageUrl)" alt="@booking.HotelName">
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-state-card">
+                <div class="empty-icon">
+                    <i class="fas fa-suitcase-rolling"></i>
+                </div>
+                <p>You haven't booked any trips yet. Start your next adventure!</p>
+                <a href="/Home/Index" class="btn btn-book">Book a Trip</a>
+            </div>
+        }
+    </main>
+</div>
+
+@section Scripts {
+    <style>
+        .profile-avatar-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #eee;
+        }
+
+        .user-profile {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .logout-link {
+            padding: 15px 25px;
+            display: block;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .sidebar-logout-link {
+            color: #40524d;
+            text-decoration: none;
+            display: inline-block;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+            .sidebar-logout-link:hover {
+                color: var(--accent-color, #2f5d50);
+            }
+
+            .sidebar-logout-link i {
+                margin-right: 8px;
+            }
+    </style>
+}

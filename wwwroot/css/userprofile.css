@@ -1,0 +1,424 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans+NKo+Unjoined:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fdfdfd;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.main-content h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.5rem;
+    color: #222;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.profile-page-container {
+    display: flex;
+    width: 100%;
+    min-height: 85vh;
+    padding: 0;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 30px 20px;
+    width: 260px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-right: 1px solid #e9ecef;
+    box-sizing: border-box;
+}
+
+.user-profile {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    background-color: #6c757d;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0 auto 15px;
+}
+
+.profile-avatar-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    display: block;
+    border: 2px solid #e9ecef;
+}
+
+.user-profile span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.user-name {
+    font-size: 1.1rem !important;
+    font-weight: 600;
+    color: #343a40 !important;
+    margin-bottom: 6px !important;
+}
+
+.user-email {
+    font-size: 0.9rem !important;
+    color: #6c757d !important;
+}
+
+
+.sidebar-nav ul {
+    list-style: none;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 13px 18px;
+    text-decoration: none;
+    color: #495057;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+    .sidebar-nav li a i {
+        margin-right: 12px;
+        width: 20px;
+        text-align: center;
+        opacity: 0.8;
+    }
+
+    .sidebar-nav li a:hover {
+        background-color: #e9ecef;
+        color: #000;
+    }
+
+    .sidebar-nav li a.active {
+        background-color: #e6f3ff;
+        color: #2f5d50;
+        font-weight: 600;
+    }
+
+.logout-link {
+    margin-top: auto;
+}
+
+    .logout-link a {
+        display: flex;
+        align-items: center;
+        padding: 13px 18px;
+        text-decoration: none;
+        color: #495057;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+        .logout-link a i {
+            margin-right: 12px;
+        }
+
+        .logout-link a:hover {
+            background-color: #f1f3f5;
+        }
+
+
+.main-content {
+    flex-grow: 1;
+    padding: 40px 50px;
+    background-color: #ffffff;
+}
+
+.booking-card {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f0f0f0;
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+    .booking-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+        transform: translateY(-3px);
+    }
+
+.booking-details {
+    padding: 30px;
+    flex-grow: 1;
+}
+
+    .booking-details h2 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #212529;
+    }
+
+.location-date {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin: 4px 0;
+}
+
+.price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #000;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.booking-image {
+    width: 320px;
+    flex-shrink: 0;
+}
+
+    .booking-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-details {
+    background-color: #fff8e1;
+    color: #b58000;
+    border: 1px solid #fbe69d;
+}
+
+    .btn-details:hover {
+        background-color: #fde8a8;
+        color: #a07000;
+    }
+
+.btn-book {
+    background-color: #e6f3ff;
+    color: #2f5d50;
+    ;
+    font-size: 1rem;
+    padding: 12px 30px;
+}
+
+    .btn-book:hover {
+        background-color: #cce4ff;
+    }
+
+.empty-state-card {
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 60px;
+    text-align: center;
+    color: #555;
+    border: 1px dashed #e0e0e0;
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+    color: #2f5d50;
+    background-color: #e6f3ff;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.empty-state-card p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #495057;
+}
+
+/* Media Queries */
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+    .profile-page-container {
+        : 1400px;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+/* Desktop and Tablet Landscape (992px to 1199px) */
+@media (: 1199px) {
+    .booking-image {
+        width: 280px;
+    }
+
+    .main-content {
+        padding: 30px 35px;
+    }
+}
+
+/* Tablet Portrait (768px to 991px) */
+@media (: 991px) {
+    .profile-page-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        padding: 20px;
+    }
+
+    .user-profile {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+        .sidebar-nav ul {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sidebar-nav li a {
+            white-space: nowrap;
+        }
+
+    .logout-link {
+        margin-top: 20px;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+
+        .main-content h1 {
+            font-size: 2rem;
+        }
+}
+
+/* Mobile Large (576px to 767px) */
+@media (: 767px) {
+    .booking-card {
+        flex-direction: column;
+    }
+
+    .booking-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .booking-details {
+        padding: 20px;
+    }
+
+        .booking-details h2 {
+            font-size: 1.4rem;
+        }
+
+    .price {
+        font-size: 1.2rem;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .empty-state-card {
+        padding: 40px 20px;
+    }
+
+    .empty-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+}
+
+/* Mobile Small (375px to 575px) */
+@media (: 575px) {
+    .user-profile {
+        margin-bottom: 20px;
+    }
+
+    .profile-avatar-image,
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .main-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .sidebar-nav li a {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .booking-details h2 {
+        font-size: 1.3rem;
+    }
+
+    .location-date {
+        font-size: 0.85rem;
+    }
+
+    .empty-state-card p {
+        font-size: 1rem;
+    }
+}

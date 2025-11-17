@@ -1,0 +1,110 @@
+﻿@model Travely.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form class="register-form" asp-action="Register" method="post">
+    <span class="material-symbols-outlined register-form-icon">person_add</span>
+    <h2>Create a new account.</h2>
+    <div asp-validation-summary="ModelOnly" style="color:red;"></div>
+
+    <div>
+        <label asp-for="Fullname"></label>
+        <input class="fullname-input" asp-for="Fullname" placeholder="Enter your fullname" />
+        <span asp-validation-for="Fullname" style="color:red;"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input class="email-input" asp-for="Email" autocomplete="username" placeholder="Enter your email" />
+        <span asp-validation-for="Email" style="color:red;"></span>
+    </div>
+
+    <div>
+        <label asp-for="Phone"></label>
+        <input class="phone-input" asp-for="Phone" autocomplete="username" placeholder="Enter your phone" />
+        <span asp-validation-for="Phone" style="color:red;"></span>
+    </div> 
+
+    <div>
+        <label asp-for="Password"></label>
+        <input class="password-input" asp-for="Password" type="password" autocomplete="new-password" placeholder="Enter your password" />
+        <span asp-validation-for="Password" style="color:red;"></span>
+    </div>
+
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <input class="password-input" asp-for="ConfirmPassword" type="password" autocomplete="new-password" placeholder="Confirm your password" />
+        <span asp-validation-for="ConfirmPassword" style="color:red;"></span>
+    </div>
+
+    <button class="register-submit-button" id="registerSubmit" type="submit">Register</button>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Add custom validation for file size
+            $.validator.addMethod("maxFileSize", function (value, element, params) {
+                if (element.files && element.files[0]) {
+                    return element.files[0].size <= params * 1024 * 1024;
+                }
+                return true;
+            }, "File size must not exceed {0}MB");
+
+            // Add custom validation for file type
+            $.validator.addMethod("allowedExtensions", function (value, element, params) {
+                if (element.files && element.files[0]) {
+                    var extension = value.toLowerCase().split('.').pop();
+                    return params.indexOf('.' + extension) !== -1;
+                }
+                return true;
+            }, "Please upload a valid image file (jpg, jpeg, png)");
+
+            // Real-time password strength indicator
+            $("#Password").on("input", function() {
+                var password = $(this).val();
+                var strength = 0;
+                
+                if(password.length >= 8) strength++;
+                if(/[A-Z]/.test(password)) strength++;
+                if(/[a-z]/.test(password)) strength++;
+                if(/[0-9]/.test(password)) strength++;
+                if(/[^A-Za-z0-9]/.test(password)) strength++;
+                
+                var strengthText = "";
+                var strengthColor = "";
+                
+                switch(strength) {
+                    case 0:
+                    case 1:
+                        strengthText = "Very Weak";
+                        strengthColor = "red";
+                        break;
+                    case 2:
+                        strengthText = "Weak";
+                        strengthColor = "orange";
+                        break;
+                    case 3:
+                        strengthText = "Medium";
+                        strengthColor = "yellow";
+                        break;
+                    case 4:
+                        strengthText = "Strong";
+                        strengthColor = "lightgreen";
+                        break;
+                    case 5:
+                        strengthText = "Very Strong";
+                        strengthColor = "green";
+                        break;
+                }
+                
+                $("#passwordStrength").remove();
+                $(this).after('<div id="passwordStrength" style="color: ' + strengthColor + '">Password Strength: ' + strengthText + '</div>');
+            });
+        });
+    </script>
+}

@@ -1,0 +1,69 @@
+﻿@model Travely.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<section class="login-form">
+    <form id="account" method="post">
+        <span class="material-symbols-outlined login-form-icon">flight_takeoff</span>
+        <h2>Welcome Back!</h2>
+        <p>Log in to continue your journey</p>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+            <h6 class="email-label">Email</h6>
+            <input asp-for="Email" class="email-input" autocomplete="email" aria-required="true" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div>
+            <h6 class="password-label">Password</h6>
+            <input asp-for="Password" type="password" class="password-input" autocomplete="current-password" aria-required="true" placeholder="Enter your password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div>
+            <div class="remember-me-input">
+                <label asp-for="RememberMe" class="form-label">
+                    <div class="checkbox-wrapper">
+                        <input class="remember-me-checkbox" asp-for="RememberMe" type="checkbox" />
+                        <span>Remember me</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+
+        <div>
+            <button class="login-submit-button" id="login-submit" type="submit">Log in</button>
+        </div>
+
+        <div>
+            <p>Don't have an account?  <a asp-action="Register">  Register as a new user</a></p>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("#account").validate({
+                rules: {
+                    Email: {
+                        required: true,
+                        email: true,
+                        pattern: /^[^@@\s]+@@[^@@\s]+\.[^@@\s]+$/
+                    }
+                },
+                messages: {
+                    Email: {
+                        pattern: "Please enter a valid email address"
+                    }
+                }
+            });
+        });
+    </script>
+}
